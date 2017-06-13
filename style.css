@@ -1,0 +1,122 @@
+/* Debug by borders */
+
+canvas {
+  /*border: 1px solid cadetblue;*/
+}
+
+.main {
+  /*border: 1px solid magenta;*/
+}
+
+.basic {
+  /*border: 1px solid burlywood;*/
+}
+
+
+/* Main Layout */
+
+canvas {
+  position: absolute;
+  width: 100%;
+  z-index: -100;
+}
+
+.main {}
+
+.main form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main form>div {
+  /*border: 1px dotted;*/
+  width: 46%;
+}
+
+.main form .image {
+  order: 1;
+}
+
+.main form .name {
+  order: 2;
+}
+
+.main form .additional {
+  order: 3;
+}
+
+.main form .basic {
+  order: 4;
+}
+
+
+/* Common styles like fonts, input styles */
+
+* {
+  font-family: sans-serif;
+}
+
+input {
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  background: transparent;
+}
+
+
+/* Components/sections */
+
+
+/* Common layouts (like inputs in .input wrappers) */
+
+.input {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em;
+}
+
+.input input {
+  flex-grow: 10
+}
+
+.basic input {
+  margin-left: .5em;
+}
+
+ol {
+  display: block;
+  width: 100%
+}
+
+ol,
+ol li {
+  padding: 0;
+  margin: 0;
+  list-style-position: inside;
+  /*border: 1px solid;*/
+}
+
+.input li input {
+  margin-top: .75em;
+  width: 90%
+}
+
+
+/* Name and Surname */
+
+.name input {
+  position: relative;
+  left: -3em;
+  font-size: 1.5em;
+  border-width: 3px;
+  border-style: solid;
+  border-image-source: linear-gradient( to right, rgb(102, 190, 164) 0%, rgb(138, 133, 207) 50%, rgb(234, 93, 13) 100%);
+  border-image-slice: 1;
+  padding: .5em;
+  margin: 2em 1em 0.5em 0;
+  width: 18em
+}
+
+.name input::placeholder {
+  text-align: center;
+  color: rgba(0, 0, 0, .2);
+}
