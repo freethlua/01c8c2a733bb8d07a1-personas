@@ -7,9 +7,10 @@ export const input = (ctx, p, count = 0, {
   name = p.name || p,
   label = p.label || Case.upper(name),
 } = {}) => h.div('.input', [
-  h.label(label + ':'),
+  h.label({ for: count ? `${name}[0]` : name }, label + ':'),
   count ? h.ol(Array(count).fill(0).map((c, i) => h.li([h.input({
-    name: `name[${i}]`,
+    id: `${name}[${i}]`,
+    name: `${name}[${i}]`,
     onchange: e => {
       const state = {};
       state[name] = ctx.state[name] || [];
@@ -18,7 +19,8 @@ export const input = (ctx, p, count = 0, {
     },
   })])))
   : h.input({
-    name: p.name || p,
+    id: name,
+    name: name,
     onchange: linkstate(ctx, p.name || p),
   }),
 ]);

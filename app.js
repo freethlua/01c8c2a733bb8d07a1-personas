@@ -15,21 +15,17 @@ class App extends Component {
   componentDidMount() {
     const inputWrappers = this.form.querySelectorAll('.input');
     let i = inputWrappers.length;
-    for (const inputWrapper of inputWrappers) {
-      const input = inputWrapper.querySelector('input');
-      // input.onchange = linkstate(this, input.getAttribute('name'));
-    }
 
-    this.renderCanvas();
     document.body.onresize = () => this.renderCanvas();
-    this.setState({
-      'this.mainElement.offsetWidth': this.mainElement.offsetWidth,
-      'this.canvas.offsetWidth': this.canvas.offsetWidth,
-      // 'this.mainElement.scrollLeft': this.mainElement.scrollLeft,
-      // 'this.canvas.scrollLeft': this.canvas.scrollLeft,
-      // 'this.mainElement.clientLeft': this.mainElement.clientLeft,
-      // 'this.canvas.clientLeft': this.canvas.clientLeft,
-    });
+
+    for (const basicInput of document.querySelectorAll('.basic .input')) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 10;
+      canvas.height = basicInput.offsetHeight + 50;
+      basicInput.appendChild(canvas);
+    }
+    this.renderCanvas();
+
   }
 
   componentDidUpdate() {
@@ -38,51 +34,41 @@ class App extends Component {
 
 
   renderCanvas() {
-    const canvas = this.canvas;
-    // canvas.width = this.mainElement.offsetWidth;
-    canvas.width = canvas.offsetWidth;
-    canvas.height = this.mainElement.offsetHeight;
-    const context = canvas.getContext('2d');
-    const container = document.querySelector('.basic');
-    const inputs = document.querySelectorAll('.basic .input');
-
-    context.lineWidth = 1;
-
     let i = 1;
-    // const x = window.innerWidth / 2.05;
-    const x = container.offsetLeft - 10;
-    const offsetTop = 0;
-
     const getColor = i => i < 7
       ? '#ea5d0d'
       : i < 10
       ? '#8a85cf'
       : '#66bea4';
-
+    const inputs = document.querySelectorAll('.basic .input');
     for (const input of inputs) {
-      context.beginPath();
+      const canvas = input.querySelector('canvas');
+      const context = canvas.getContext('2d');
+      context.lineWidth = 1;
       const color = getColor(i);
-      const begin = input.offsetTop + offsetTop;
-      context.moveTo(x, begin);
-      context.arc(x, begin, 2, 0, 2 * Math.PI, false);
+      context.beginPath();
+      context.moveTo(2, 2);
+      context.arc(2, 2, 2, 0, 2 * Math.PI, false);
       context.fillStyle = color;
-      context.moveTo(x, begin + 2);
+      context.fill();
+
+      context.beginPath();
+      context.moveTo(2, 2);
+
       const next = inputs[i++];
       const nextColor = getColor(i);
       if (next) {
-        const end = next.offsetTop + offsetTop - 2;
-        context.lineTo(x, end);
+        context.lineTo(2, input.offsetHeight + 16);
+        if (color === nextColor) {
+          context.strokeStyle = color;
+        } else {
+          const gradient = context.createLinearGradient(0, 0, 0, input.offsetHeight + 16);
+          gradient.addColorStop(0, color);
+          gradient.addColorStop(1, nextColor);
+          context.strokeStyle = gradient;
+        }
+        context.stroke();
       }
-      if (color === nextColor) {
-        context.strokeStyle = color;
-      } else {
-        const gradient = context.createLinearGradient(50, 50, 150, 150);
-        gradient.addColorStop(0, color);
-        gradient.addColorStop(1, nextColor);
-        context.strokeStyle = gradient;
-      }
-      context.fill();
-      context.stroke();
     }
   }
 
