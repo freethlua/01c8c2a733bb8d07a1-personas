@@ -52,12 +52,11 @@ class App extends Component {
       context.fillStyle = color;
       context.fill();
 
-      context.beginPath();
-      context.moveTo(2, 2);
-
       const next = inputs[i++];
       const nextColor = getColor(i);
       if (next) {
+        context.beginPath();
+        context.moveTo(2, 2);
         context.lineTo(2, input.offsetHeight + 16);
         if (color === nextColor) {
           context.strokeStyle = color;
@@ -102,12 +101,12 @@ class App extends Component {
           utils.input(this, 'wherePreferToExercise', 3),
         ]),
         h.div('.additional', [
-          utils.input(this, 'aDayInTheLife'),
-          utils.input(this, 'experienceWithFitness'),
-          utils.input(this, 'preferFitnessMethod'),
-          utils.input(this, 'biggestChallengeWithFitness'),
-          utils.input(this, 'solutionAlreadyTried'),
-          utils.input(this, 'yourSolution'),
+          utils.text(this, 'aDayInTheLife'),
+          utils.text(this, 'experienceWithFitness'),
+          utils.text(this, 'preferFitnessMethod'),
+          utils.text(this, 'biggestChallengeWithFitness'),
+          utils.text(this, 'solutionAlreadyTried'),
+          utils.text(this, 'yourSolution'),
         ]),
       ]),
       h.pre({ style: 'position:fixed;bottom:0;right:0;font-size:1em' }, JSON.stringify(this.state, null, 2)),

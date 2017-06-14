@@ -6,7 +6,9 @@ import Case from 'case';
 export const input = (ctx, p, count = 0, {
   name = p.name || p,
   label = p.label || Case.upper(name),
-} = {}) => h.div('.input', [
+} = {}) => h.div('.input', {
+  class: [count && 'multi-line'].filter(Boolean)
+}, [
   h.label({ for: count ? `${name}[0]` : name }, label + ':'),
   count ? h.ol(Array(count).fill(0).map((c, i) => h.li([h.input({
     id: `${name}[${i}]`,
@@ -21,6 +23,20 @@ export const input = (ctx, p, count = 0, {
   : h.input({
     id: name,
     name: name,
-    onchange: linkstate(ctx, p.name || p),
+    onchange: linkstate(ctx, name),
+  }),
+]);
+
+export const text = (ctx, p, {
+  name = p.name || p,
+  label = p.label || Case.upper(name),
+} = {}) => h.div('.input', {
+  // class: [count && 'multi-line'].filter(Boolean)
+}, [
+  h.label({ for: name }, label + ':'),
+  h.textarea({
+    id: name,
+    name: name,
+    onchange: linkstate(ctx, name),
   }),
 ]);
