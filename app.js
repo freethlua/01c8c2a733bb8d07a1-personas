@@ -84,7 +84,21 @@ class App extends Component {
           }),
         ]),
         h.div('.image', [
-          h.div('Image'),
+          h.img({
+            alt: 'Upload an image',
+            // src: 'https://www.gravatar.com/avatar/df9d48b6e2ae6cdedf4c39c2e58df851?s=32&amp;d=identicon&amp;r=PG',
+            // width: 32,
+            // height: 32,
+            src: this.state.image,
+          }),
+          h.input({
+            type: 'file',
+            onchange: e => {
+              const reader = new FileReader();
+              reader.onload = e => this.setState({ image: e.target.result });
+              reader.readAsDataURL(e.target.files[0]);
+            },
+          }),
         ]),
         h.div('.basic', [
           // utils.input(this, 'gender'),
@@ -109,7 +123,7 @@ class App extends Component {
           utils.text(this, 'yourSolution'),
         ]),
       ]),
-      h.pre({ style: 'position:fixed;bottom:0;right:0;font-size:1em' }, JSON.stringify(this.state, null, 2)),
+      // h.pre({ style: 'position:fixed;bottom:0;right:0;font-size:1em' }, JSON.stringify(this.state, null, 2)),
     ]);
   }
 }

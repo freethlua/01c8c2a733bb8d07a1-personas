@@ -136,7 +136,9 @@ ol li {
   border-image-slice: 1;
   padding: .5em;
   margin: 2em 1em 0.5em 0;
-  width: 18em
+  width: 18em;
+  z-index: 100;
+  text-align: center;
 }
 
 .name input::placeholder {
@@ -159,3 +161,40 @@ textarea {
   overflow: hidden;
   resize: none;
 }
+
+.basic {
+  position: relative;
+  top: -220px;
+}
+
+.image {
+  position: relative;
+  /*border: 1px dotted;*/
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 40% !important;
+  height: 300px;
+}
+
+.image input {
+  display: block;
+  position: absolute;
+  left: 3em;
+  bottom: 1em;
+  z-index: 100;
+}
+@media print {
+  .image input {
+    display: none;
+  }
+}
+
+
+.image img {
+  text-align: center;
+  width: 100%;
+  /*height: 300px;*/
+  /*max-width: 100%;*/
+  /*max-height: 120px;*/
+}
+
